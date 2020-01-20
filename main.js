@@ -16,20 +16,48 @@ const level1 = {
     width: 3,
     height: 3,
     map: [
-        ['B', 'B', 'B'],
-        ['O', 'O', 'O'],
+        ['B', 'B', 'P'],
+        ['O', '0', 'O'],
         ['B', 'B', 'B']
     ],
     exit: [4, 2]
 }
 
+const level2 = {
+    width: 4,
+    height: 4
+}
+
 // maps
 class Map {
     constructor(obj) {
-
+        this.width = obj.width
+        this.height = obj.height
+        this.map = obj.map
+        this.exit = obj.exit
     }
     draw() {
-        
+        this.map.forEach((array, i) => {
+            array.forEach((tile, j) => {
+                switch (tile) {
+                    case '0':
+                        break
+                    case 'B':
+                        new Tile(100 + j * 55, 100 + i * 55, images.blTile)
+                        break
+                    case 'O':
+                        new Tile(100 + j * 55, 100 + i * 55, images.orTile)
+                        break
+                    case 'P':
+                        new Tile(100 + j * 55, 100 + i * 55, images.piTile)
+                }
+            })
+        })
+        new Tile(
+                100 + (this.exit[0] - 1) * 55, 
+                100 + (this.exit[1] - 1) * 55, 
+                images.spTile
+                )
     }
 }
 
@@ -52,21 +80,5 @@ class Tile {
 }
 
 window.onload = () => {
-    level1.map.forEach((array, i) => {
-        array.forEach((tile, j) => {
-            switch (tile) {
-                case 'B':
-                    new Tile(100 + j * 55, 100 + i * 55, images.blTile)
-                    break
-                case 'O':
-                    new Tile(100 + j * 55, 100 + i * 55, images.orTile)
-                    break
-            }
-        })
-    })
-    new Tile(
-            100 + (level1.exit[0] - 1) * 55, 
-            100 + (level1.exit[1] - 1) * 55, 
-            images.spTile
-            )
+    new Map(level1).draw()
 }
