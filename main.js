@@ -116,8 +116,26 @@ class Key {
     }
 }
 
+class Character {
+    constructor(x, y, src) {
+        this.x = x
+        this.y = y
+        this.width = 37.5
+        this.height = 65
+        this.img = new Image()
+        this.img.src = src
+        this.img.onload = () => {
+            this.draw()
+        }
+    }
+    draw() {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+    }
+}
+
 /* ----- RENDER ----- */
 window.onload = () => {
     new Map(100, level1).draw()
     new Map(550, level2).draw()
+    new Character(105 , 225, images.boy)
 }
