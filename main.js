@@ -131,11 +131,15 @@ class Character {
     draw() {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
+    right() {
+        this.x += 55
+    }
 }
 
 /* ----- RENDER ----- */
+
 window.onload = () => {
     new Map(100, level1).draw()
     new Map(550, level2).draw()
-    new Character(105 , 225, images.boy)
+    const boy = new Character(105 , 225, images.boy)
 }
