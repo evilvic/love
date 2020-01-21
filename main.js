@@ -2,15 +2,6 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-/* ----- INTERVAL ----- */
-let interval
-let frames = 0
-
-/* ----- VARIABLES ----- */
-let boardLeft
-let boardRigth
-let boy
-
 /* ----- IMAGES ----- */
 const images = {
     boy: './assets/images/ch-boy.png',
@@ -21,6 +12,10 @@ const images = {
     grTile: './assets/images/tile-green.png',
     token: './assets/images/token.png'
 }
+
+/* ----- VARIABLES ----- */
+let boardLeft
+let boardRigth
 
 /* ----- LEVELS ----- */
 const level1 = {
@@ -60,6 +55,7 @@ class Map {
         this.map = obj.map
         this.exit = obj.exit
         this.key = obj.key
+        this.start = obj.start
     }
     draw() {
         this.map.forEach((array, i) => {
@@ -87,6 +83,11 @@ class Map {
                 this.x + 15 + (this.key[0] - 1) * 55, 
                 200 + 13 + (this.key[1] - 1) * 55, 
                 images.token
+                )
+        new Character(
+                this.x + 6 + (this.start[0] - 1) * 55, 
+                175 + (this.start[1] - 1) * 55, 
+                images.boy
                 )
     }
 }
@@ -140,38 +141,56 @@ class Character {
     draw() {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
-    right() {
-        this.x += 55
-    }
-}
-
-/* ----- MOVE --- */
-document.onkeydown = (e) => { 
-    if (e.keyCode === 39) return boy.right()
 }
 
 /* ----- RENDER ----- */
 window.onload = () => {
-    document.querySelector('#play').onclick = function() {
-        startGame();
-        boy = new Character(105 , 225, images.boy)
-    };
-
+    
     boardLeft = new Map(100, level1)
     boardRight = new Map(550, level2)
     boardLeft.draw()
     boardRight.draw()
-
+    
+    document.querySelector('#play').onclick = function() {
+        document.querySelector('#play').blur()
+        startGame();
+    };
+    
+    
     function startGame() {
-        if (interval) return
-        interval = setInterval(update, 1000 / 1)
-    }
-}
 
-function update() {
-    frames++
-    ctx.clearRect(0, 0, 900, 600)
-    boardLeft.draw()
-    boardRight.draw()
-    boy.draw()
+        /* ----- MOVE --- */
+        function boyRight() {
+            ctx.clearRect(0, 0, 450, 600)
+            boardLeft.start[0]++
+            boardLeft.draw()
+        }
+        
+        function boyLeft() {
+            ctx.clearRect(0, 0, 450, 600)
+            boardLeft.start[0]--
+            boardLeft.draw()
+        }
+        
+        function boyUp() {
+            ctx.clearRect(0, 0, 450, 600)
+            boardLeft.start[1]--
+            boardLeft.draw()
+        }
+        
+        function boyDown() {
+            ctx.clearRect(0, 0, 450, 600)
+            boardLeft.start[1]++
+            boardLeft.draw()
+        }
+        
+        document.onkeydown = (e) => { 
+            if (e.keyCode === 68) return boyRight()
+            if (e.keyCode === 65) return boyLeft()
+            if (e.keyCode === 87) return boyUp()
+            if (e.keyCode === 83) return boyDown()
+        }
+
+    }
+
 }
