@@ -104,6 +104,7 @@ class Tile {
         }
     }
     draw() {
+        ctx.clearRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
 }
@@ -121,6 +122,7 @@ class Key {
         }
     }
     draw() {
+        ctx.clearRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
 }
@@ -141,7 +143,13 @@ class Character {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
     right() {
+        boardLeft.draw()
+        boardRight.draw()
+        console.log(canvas.height)
+        ctx.clearRect(this.x, this.y, this.width, canvas.height)
         this.x += 55
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+        ctx.drawImage()
     }
 }
 
@@ -169,9 +177,10 @@ window.onload = () => {
 }
 
 function update() {
-    frames++
-    ctx.clearRect(0, 0, 900, 600)
-    boardLeft.draw()
-    boardRight.draw()
-    boy.draw()
+    // frames++
+    //
+    // boy.draw()
+    // boardLeft.draw()
+    // boardRight.draw()
+    
 }
