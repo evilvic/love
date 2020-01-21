@@ -211,7 +211,6 @@ window.onload = () => {
             if (boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] > 0){
                 aux = [...boardLeft.start]
                 moves.push(aux)
-                console.log(moves)
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[0]++
                 removeTile()
@@ -224,7 +223,6 @@ window.onload = () => {
             if (boardLeft.map[boardLeft.start[0] - 1][boardLeft.start[1]] > 0) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
-                console.log(moves)
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[0]--
                 removeTile()
@@ -237,7 +235,6 @@ window.onload = () => {
             if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] - 1] > 0) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
-                console.log(moves)
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[1]--
                 removeTile()
@@ -250,7 +247,6 @@ window.onload = () => {
             if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] + 1] > 0) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
-                console.log(moves)
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[1]++
                 removeTile()
@@ -271,8 +267,16 @@ window.onload = () => {
         }
 
         function removeTile() {
-            if(boardLeft.map[moves[moves.length - 1][0]][moves[moves.length - 1][1]] === 1) {
+            if (boardLeft.map[moves[moves.length - 1][0]][moves[moves.length - 1][1]] === 1) {
                 boardLeft.map[moves[moves.length - 1][0]][moves[moves.length - 1][1]] = 0
+            } else if (boardLeft.map[moves[moves.length - 1][0]][moves[moves.length - 1][1]] === 3) {
+                boardLeft.map.forEach((array,i) => {
+                    array.forEach((element,j) => {
+                        if (element === 3) {
+                            boardLeft.map[i][j] = 0
+                        }
+                    })
+                })
             }
         }
 
