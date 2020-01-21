@@ -18,6 +18,7 @@ const images = {
 let level = 0
 let boardLeft
 let boardRigth
+let moves = []
 
 /* ----- LEVELS ----- */
 const levels = [
@@ -113,11 +114,19 @@ class Map {
                 113 + this.key[1] * 55, 
                 images.token
                 )
-        new Character(
+        if (this.x < 450) {
+            new Character(
+                    this.x + 6 + this.start[0] * 55, 
+                    75 + this.start[1] * 55, 
+                    images.boy
+                    )
+        } else {
+            new Character(
                 this.x + 6 + this.start[0] * 55, 
                 75 + this.start[1] * 55, 
-                images.boy
+                images.girl
                 )
+        }
     }
 }
 
@@ -175,10 +184,15 @@ class Character {
 /* ----- RENDER ----- */
 window.onload = () => {
     
-    boardLeft = new Map(100, levels[0])
-    boardRight = new Map(550, levels[2])
+    boardLeft = new Map(25, levels[0])
+    boardRight = new Map(475, levels[0])
     boardLeft.draw()
     boardRight.draw()
+    ctx.beginPath()
+    ctx.moveTo(450,0)
+    ctx.lineTo(450,600)
+    ctx.stroke()
+    ctx.closePath()
     
     document.querySelector('#play').onclick = function() {
         document.querySelector('#play').blur()
@@ -190,28 +204,37 @@ window.onload = () => {
 
         /* ----- MOVE --- */
         function boyRight() {
-            ctx.clearRect(0, 0, 450, 600)
-            boardLeft.start[0]++
-            boardLeft.draw()
+            if (boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] > 0){
+                ctx.clearRect(0, 0, 450, 600)
+                boardLeft.start[0]++
+                boardLeft.draw()
+            }
         }
         
         function boyLeft() {
-            ctx.clearRect(0, 0, 450, 600)
-            boardLeft.start[0]--
-            boardLeft.draw()
+            if (boardLeft.map[boardLeft.start[0] - 1][boardLeft.start[1]] > 0) {
+                ctx.clearRect(0, 0, 450, 600)
+                boardLeft.start[0]--
+                boardLeft.draw()
+            }
         }
         
         function boyUp() {
-            ctx.clearRect(0, 0, 450, 600)
-            boardLeft.start[1]--
-            boardLeft.draw()
+            if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] - 1] > 0) {
+                ctx.clearRect(0, 0, 450, 600)
+                boardLeft.start[1]--
+                boardLeft.draw()
+            }
         }
         
         function boyDown() {
-            ctx.clearRect(0, 0, 450, 600)
-            boardLeft.start[1]++
-            boardLeft.draw()
+            if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] + 1] > 0) {
+                ctx.clearRect(0, 0, 450, 600)
+                boardLeft.start[1]++
+                boardLeft.draw()
+            }
         }
+
         
         document.onkeydown = (e) => { 
             if (e.keyCode === 68) return boyRight()
