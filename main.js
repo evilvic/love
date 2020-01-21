@@ -19,6 +19,7 @@ let level = 0
 let boardLeft
 let boardRigth
 let position
+let moves = []
 let token = false
 
 /* ----- LEVELS ----- */
@@ -189,7 +190,9 @@ window.onload = () => {
     boardRight = new Map(475, levels[0])
     boardLeft.draw()
     boardRight.draw()
-    position = boardLeft.start
+    positionKey = boardLeft.start
+    position = [...boardLeft.start]
+    let aux
     ctx.beginPath()
     ctx.moveTo(450,0)
     ctx.lineTo(450,600)
@@ -201,14 +204,17 @@ window.onload = () => {
         startGame();
     };
     
-    
     function startGame() {
 
         /* ----- MOVE --- */
         function boyRight() {
             if (boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] > 0){
+                aux = [...boardLeft.start]
+                moves.push(aux)
+                console.log(moves)
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[0]++
+                removeTile()
                 boardLeft.draw()
                 key()
             }
@@ -216,8 +222,12 @@ window.onload = () => {
         
         function boyLeft() {
             if (boardLeft.map[boardLeft.start[0] - 1][boardLeft.start[1]] > 0) {
+                aux = [...boardLeft.start]
+                moves.push(aux)
+                console.log(moves)
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[0]--
+                removeTile()
                 boardLeft.draw()
                 key()
             }
@@ -225,8 +235,12 @@ window.onload = () => {
         
         function boyUp() {
             if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] - 1] > 0) {
+                aux = [...boardLeft.start]
+                moves.push(aux)
+                console.log(moves)
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[1]--
+                removeTile()
                 boardLeft.draw()
                 key()
             }
@@ -234,15 +248,19 @@ window.onload = () => {
         
         function boyDown() {
             if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] + 1] > 0) {
+                aux = [...boardLeft.start]
+                moves.push(aux)
+                console.log(moves)
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[1]++
+                removeTile()
                 boardLeft.draw()
                 key()
             }
         }
 
         function key() {
-            if (boardLeft.key[1] === position[1] && boardLeft.key[0] === position[0]) {
+            if (boardLeft.key[1] === positionKey[1] && boardLeft.key[0] === positionKey[0]) {
                 token = true
                 if (token) {
                     boardLeft.map[boardLeft.exit[0]][boardLeft.exit[1]] = 5
@@ -250,6 +268,12 @@ window.onload = () => {
                 }
             }
             return key
+        }
+
+        function removeTile() {
+            if(boardLeft.map[moves[moves.length - 1][0]][moves[moves.length - 1][1]] === 1) {
+                boardLeft.map[moves[moves.length - 1][0]][moves[moves.length - 1][1]] = 0
+            }
         }
 
         document.onkeydown = (e) => { 
