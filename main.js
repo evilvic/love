@@ -4,89 +4,118 @@ const ctx = canvas.getContext('2d')
 
 /* ----- IMAGES ----- */
 const images = {
-    boy: './assets/images/ch-boy.png',
     blTile: './assets/images/tile-blue.png',
     orTile: './assets/images/tile-orange.png',
     piTile: './assets/images/tile-pink.png',
-    spTile: './assets/images/tile-gray.png',
-    grTile: './assets/images/tile-green.png',
+    grTile: './assets/images/tile-gray.png',
+    exTile: './assets/images/tile-green.png',
+    boy: './assets/images/ch-boy.png',
+    girl: './assets/images/ch-girl.png',
     token: './assets/images/token.png'
 }
 
 /* ----- VARIABLES ----- */
+let level = 0
 let boardLeft
 let boardRigth
 
 /* ----- LEVELS ----- */
-const level1 = {
-    width: 3,
-    height: 3,
-    map: [
-        ['B', 'B', 'B'],
-        ['O', 'O', 'O'],
-        ['B', 'B', 'B']
-    ],
-    exit: [4, 2],
-    start: [1, 2],
-    key:  [2, 2]
+const levels = [
+    {
+        id: 0,
+        width: 5,
+        height: 5,
+        map: [
+            [0, 0, 0, 0, 0],
+            [0, 1, 2, 1, 0],
+            [0, 1, 2, 1, 0],
+            [0, 1, 2, 1, 0],
+            [0, 0, 4, 0, 0],
+        ],
+        exit: [4, 2],
+        start: [1, 2],
+        key:  [2, 2]
+    },
+    {
+        id: 1,
+        width: 6,
+        height: 6,
+        map: [
+            [0, 0, 0, 0, 0, 0],
+            [0, 2, 1, 1, 1, 0],
+            [0, 1, 3, 3, 1, 0],
+            [0, 1, 3, 3, 1, 0],
+            [0, 3, 1, 1, 2, 4],
+            [0, 0, 0, 0, 0, 0]
+        ],
+        exit: [4, 5],
+        start: [4, 4],
+        key: [1, 1]
+    },
+    {
+        id: 2,
+        width: 7,
+        height: 7,
+        map: [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 3, 1, 1, 3, 0],
+            [0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 1, 2, 1, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0],
+            [0, 3, 1, 1, 1, 3, 0],
+            [0, 0, 0, 4, 0, 0, 0]
+        ],
+        exit: [6, 3],
+        start: [1, 1],
+        key: [1, 5]
+    }
 
-}
-
-const level2 = {
-    width: 4,
-    height: 4,
-    map: [
-        ['O', 'B', 'B', 'P'],
-        ['B', 'P', 'P', 'B'],
-        ['B', 'P', 'P', 'B'],
-        ['B', 'B', 'B', 'O']
-    ],
-    exit: [4, 5],
-    start: [4, 4],
-    key: [1, 1]
-}
+]
 
 /* ----- CLASSES ----- */
 class Map {
     constructor(x, obj) {
         this.x = x
+        this.id = obj.id
         this.width = obj.width
         this.height = obj.height
         this.map = obj.map
         this.exit = obj.exit
-        this.key = obj.key
         this.start = obj.start
+        this.key = obj.key
     }
     draw() {
         this.map.forEach((array, i) => {
             array.forEach((tile, j) => {
                 switch (tile) {
-                    case '0':
+                    case 0:
                         break
-                    case 'B':
-                        new Tile(this.x + j * 55, 200 + i * 55, images.blTile)
+                    case 1:
+                        new Tile(this.x + i * 55, 100 + j * 55, images.blTile)
                         break
-                    case 'O':
-                        new Tile(this.x + j * 55, 200 + i * 55, images.orTile)
+                    case 2:
+                        new Tile(this.x + i * 55, 100 + j * 55, images.orTile)
                         break
-                    case 'P':
-                        new Tile(this.x + j * 55, 200 + i * 55, images.piTile)
+                    case 3:
+                        new Tile(this.x + i * 55, 100 + j * 55, images.piTile)
+                        break
+                    case 4:
+                        new Tile(this.x + i * 55, 100 + j * 55, images.grTile)
+                        break
+                    case 5:
+                        new Tile(this.x + i * 55, 100 + j * 55, images.exTile)
+                        break
                 }
             })
         })
-        new Tile(
-                this.x + (this.exit[0] - 1) * 55, 
-                200 + (this.exit[1] - 1) * 55, 
-                images.spTile
-                )
         new Key(
-                this.x + 15 + (this.key[0] - 1) * 55, 
-                200 + 13 + (this.key[1] - 1) * 55, 
+                this.x + 15 + this.key[0] * 55, 
+                113 + this.key[1] * 55, 
                 images.token
                 )
         new Character(
-                this.x + 6 + (this.start[0] - 1) * 55, 
-                175 + (this.start[1] - 1) * 55, 
+                this.x + 6 + this.start[0] * 55, 
+                75 + this.start[1] * 55, 
                 images.boy
                 )
     }
@@ -146,8 +175,8 @@ class Character {
 /* ----- RENDER ----- */
 window.onload = () => {
     
-    boardLeft = new Map(100, level1)
-    boardRight = new Map(550, level2)
+    boardLeft = new Map(100, levels[0])
+    boardRight = new Map(550, levels[2])
     boardLeft.draw()
     boardRight.draw()
     
