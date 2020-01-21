@@ -2,15 +2,24 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
+/* ----- INTERVAL ----- */
+let interval
+let frames = 0
+
+/* ----- VARIABLES ----- */
+let boardLeft
+let boardRigth
+let boy
+
 /* ----- IMAGES ----- */
 const images = {
+    boy: './assets/images/ch-boy.png',
     blTile: './assets/images/tile-blue.png',
     orTile: './assets/images/tile-orange.png',
     piTile: './assets/images/tile-pink.png',
     spTile: './assets/images/tile-gray.png',
     grTile: './assets/images/tile-green.png',
-    token: './assets/images/token.png',
-    boy: './assets/images/ch-boy.png'
+    token: './assets/images/token.png'
 }
 
 /* ----- LEVELS ----- */
@@ -136,10 +145,33 @@ class Character {
     }
 }
 
-/* ----- RENDER ----- */
+/* ----- MOVE --- */
+document.onkeydown = (e) => { 
+    if (e.keyCode === 39) return boy.right()
+}
 
+/* ----- RENDER ----- */
 window.onload = () => {
-    new Map(100, level1).draw()
-    new Map(550, level2).draw()
-    const boy = new Character(105 , 225, images.boy)
+    document.querySelector('#play').onclick = function() {
+        startGame();
+        boy = new Character(105 , 225, images.boy)
+    };
+
+    boardLeft = new Map(100, level1)
+    boardRight = new Map(550, level2)
+    boardLeft.draw()
+    boardRight.draw()
+
+    function startGame() {
+        if (interval) return
+        interval = setInterval(update, 1000 / 1)
+    }
+}
+
+function update() {
+    frames++
+    ctx.clearRect(0, 0, 900, 600)
+    boardLeft.draw()
+    boardRight.draw()
+    boy.draw()
 }
