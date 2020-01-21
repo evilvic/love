@@ -18,7 +18,8 @@ const images = {
 let level = 0
 let boardLeft
 let boardRigth
-let moves = []
+let position
+let token = false
 
 /* ----- LEVELS ----- */
 const levels = [
@@ -184,10 +185,11 @@ class Character {
 /* ----- RENDER ----- */
 window.onload = () => {
     
-    boardLeft = new Map(25, levels[0])
+    boardLeft = new Map(25, levels[2])
     boardRight = new Map(475, levels[0])
     boardLeft.draw()
     boardRight.draw()
+    position = boardLeft.start
     ctx.beginPath()
     ctx.moveTo(450,0)
     ctx.lineTo(450,600)
@@ -208,6 +210,7 @@ window.onload = () => {
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[0]++
                 boardLeft.draw()
+                key()
             }
         }
         
@@ -216,6 +219,7 @@ window.onload = () => {
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[0]--
                 boardLeft.draw()
+                key()
             }
         }
         
@@ -224,6 +228,7 @@ window.onload = () => {
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[1]--
                 boardLeft.draw()
+                key()
             }
         }
         
@@ -232,10 +237,21 @@ window.onload = () => {
                 ctx.clearRect(0, 0, 450, 600)
                 boardLeft.start[1]++
                 boardLeft.draw()
+                key()
             }
         }
 
-        
+        function key() {
+            if (boardLeft.key[1] === position[1] && boardLeft.key[0] === position[0]) {
+                token = true
+                if (token) {
+                    boardLeft.map[boardLeft.exit[0]][boardLeft.exit[1]] = 5
+                    boardLeft.key = []
+                }
+            }
+            return key
+        }
+
         document.onkeydown = (e) => { 
             if (e.keyCode === 68) return boyRight()
             if (e.keyCode === 65) return boyLeft()
