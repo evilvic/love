@@ -15,10 +15,10 @@ const images = {
 }
 
 /* ----- VARIABLES ----- */
-let level = 0
+let levelBoy = 0
+let levelGirl = 1
 let boardLeft
 let boardRight
-let position
 let positionKey
 let positionKeyGirl
 let moves = []
@@ -75,6 +75,23 @@ const levels = [
         exit: [6, 3],
         start: [1, 1],
         key: [1, 5]
+    },
+    {
+        id: 3,
+        width: 7,
+        height: 8,
+        map: [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 3, 1, 3, 1, 3, 0],
+            [0, 3, 1, 3, 1, 3, 0, 0],
+            [0, 3, 1, 1, 2, 3, 0, 0],
+            [0, 3, 1, 3, 1, 3, 0, 0],
+            [0, 0, 3, 1, 3, 1, 3, 0],
+            [0, 0, 0, 0, 0, 4, 0, 0]
+        ],
+        exit: [6, 5],
+        start: [2, 2],
+        key: [2, 4]
     }
 ]
 
@@ -189,8 +206,8 @@ class Character {
 /* ----- RENDER ----- */
 window.onload = () => {
     
-    boardLeft = new Map(25, levels[1])
-    boardRight = new Map(475, levels[2])
+    boardLeft = new Map(25, levels[levelBoy])
+    boardRight = new Map(475, levels[levelGirl])
     boardLeft.draw()
     boardRight.draw()
     positionKey = boardLeft.start
@@ -211,9 +228,20 @@ window.onload = () => {
     
     function startGame() {
 
+
+        let interval = setInterval(function() {
+            if (positionKey[0] === boardLeft.exit[0] &&
+                positionKey[1] === boardLeft.exit[1] &&
+                positionKeyGirl[0] === boardRight.exit[0] &&
+                positionKeyGirl[1] === boardRight.exit[1]) {
+                console.log('win')
+            }
+        }, 1000)
+
         /* ----- MOVE --- */
         function boyRight() {
-            if (boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] > 0){
+            if (boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] > 0 &&
+                boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] != 4){
                 aux = [...boardLeft.start]
                 moves.push(aux)
                 ctx.clearRect(0, 0, 450, 600)
@@ -225,7 +253,8 @@ window.onload = () => {
         }
         
         function boyLeft() {
-            if (boardLeft.map[boardLeft.start[0] - 1][boardLeft.start[1]] > 0) {
+            if (boardLeft.map[boardLeft.start[0] - 1][boardLeft.start[1]] > 0 &&
+                boardLeft.map[boardLeft.start[0] - 1][boardLeft.start[1]] != 4) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
                 ctx.clearRect(0, 0, 450, 600)
@@ -237,7 +266,8 @@ window.onload = () => {
         }
         
         function boyUp() {
-            if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] - 1] > 0) {
+            if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] - 1] > 0 &&
+                boardLeft.map[boardLeft.start[0]][boardLeft.start[1] - 1] != 4) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
                 ctx.clearRect(0, 0, 450, 600)
@@ -249,7 +279,8 @@ window.onload = () => {
         }
         
         function boyDown() {
-            if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] + 1] > 0) {
+            if (boardLeft.map[boardLeft.start[0]][boardLeft.start[1] + 1] > 0 &&
+                boardLeft.map[boardLeft.start[0]][boardLeft.start[1] + 1] != 4) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
                 ctx.clearRect(0, 0, 450, 600)
@@ -268,7 +299,6 @@ window.onload = () => {
                     boardLeft.key = []
                 }
             }
-            //return key
         }
 
         function removeTile() {
@@ -287,7 +317,8 @@ window.onload = () => {
 
         /* ----- MOVE GIRL --- */
         function girlRight() {
-            if (boardRight.map[boardRight.start[0] + 1][boardRight.start[1]] > 0){
+            if (boardRight.map[boardRight.start[0] + 1][boardRight.start[1]] > 0 &&
+                boardRight.map[boardRight.start[0] + 1][boardRight.start[1]] != 4){
                 auxGirl = [...boardRight.start]
                 movesGirl.push(auxGirl)
                 ctx.clearRect(450, 0, 450, 600)
@@ -299,7 +330,8 @@ window.onload = () => {
         }
 
         function girlLeft() {
-            if (boardRight.map[boardRight.start[0] - 1][boardRight.start[1]] > 0) {
+            if (boardRight.map[boardRight.start[0] - 1][boardRight.start[1]] > 0 &&
+                boardRight.map[boardRight.start[0] - 1][boardRight.start[1]] != 4) {
                 auxGirl = [...boardRight.start]
                 movesGirl.push(auxGirl)
                 ctx.clearRect(450, 0, 450, 600)
@@ -311,7 +343,8 @@ window.onload = () => {
         }
 
         function girlUp() {
-            if (boardRight.map[boardRight.start[0]][boardRight.start[1] - 1] > 0) {
+            if (boardRight.map[boardRight.start[0]][boardRight.start[1] - 1] > 0 &&
+                boardRight.map[boardRight.start[0]][boardRight.start[1] - 1] != 4) {
                 auxGirl = [...boardRight.start]
                 movesGirl.push(auxGirl)
                 ctx.clearRect(450, 0, 450, 600)
@@ -323,7 +356,8 @@ window.onload = () => {
         }
 
         function girlDown() {
-            if (boardRight.map[boardRight.start[0]][boardRight.start[1] + 1] > 0) {
+            if (boardRight.map[boardRight.start[0]][boardRight.start[1] + 1] > 0 &&
+                boardRight.map[boardRight.start[0]][boardRight.start[1] + 1] != 4) {
                 auxGirl = [...boardRight.start]
                 movesGirl.push(auxGirl)
                 ctx.clearRect(450, 0, 450, 600)
@@ -342,7 +376,6 @@ window.onload = () => {
                     boardRight.key = []
                 }
             }
-            //return key
         }
 
         function removeTileGirl() {
@@ -356,6 +389,12 @@ window.onload = () => {
                         }
                     })
                 })
+            }
+        }
+
+        function win() {
+            if (positionKey[0] === boardLeft.exit[0]) {
+                console.log('win')
             }
         }
 
