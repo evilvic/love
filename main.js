@@ -17,11 +17,14 @@ const images = {
 /* ----- VARIABLES ----- */
 let level = 0
 let boardLeft
-let boardRigth
+let boardRight
 let position
 let positionKey
+let positionKeyGirl
 let moves = []
+let movesGirl = []
 let token = false
+let tokenGirl = false
 
 /* ----- LEVELS ----- */
 const levels = [
@@ -186,13 +189,15 @@ class Character {
 /* ----- RENDER ----- */
 window.onload = () => {
     
-    boardLeft = new Map(25, levels[2])
-    boardRight = new Map(475, levels[0])
+    boardLeft = new Map(25, levels[1])
+    boardRight = new Map(475, levels[2])
     boardLeft.draw()
     boardRight.draw()
     positionKey = boardLeft.start
+    positionKeyGirl = boardRight.start
     position = [...boardLeft.start]
     let aux
+    let auxGirl
     ctx.beginPath()
     ctx.moveTo(450,0)
     ctx.lineTo(450,600)
@@ -263,7 +268,7 @@ window.onload = () => {
                     boardLeft.key = []
                 }
             }
-            return key
+            //return key
         }
 
         function removeTile() {
@@ -280,11 +285,89 @@ window.onload = () => {
             }
         }
 
+        /* ----- MOVE GIRL --- */
+        function girlRight() {
+            if (boardRight.map[boardRight.start[0] + 1][boardRight.start[1]] > 0){
+                auxGirl = [...boardRight.start]
+                movesGirl.push(auxGirl)
+                ctx.clearRect(450, 0, 450, 600)
+                boardRight.start[0]++
+                removeTileGirl()
+                boardRight.draw()
+                keyGirl()
+            }
+        }
+
+        function girlLeft() {
+            if (boardRight.map[boardRight.start[0] - 1][boardRight.start[1]] > 0) {
+                auxGirl = [...boardRight.start]
+                movesGirl.push(auxGirl)
+                ctx.clearRect(450, 0, 450, 600)
+                boardRight.start[0]--
+                removeTileGirl()
+                boardRight.draw()
+                keyGirl()
+            }
+        }
+
+        function girlUp() {
+            if (boardRight.map[boardRight.start[0]][boardRight.start[1] - 1] > 0) {
+                auxGirl = [...boardRight.start]
+                movesGirl.push(auxGirl)
+                ctx.clearRect(450, 0, 450, 600)
+                boardRight.start[1]--
+                removeTileGirl()
+                boardRight.draw()
+                keyGirl()
+            }
+        }
+
+        function girlDown() {
+            if (boardRight.map[boardRight.start[0]][boardRight.start[1] + 1] > 0) {
+                auxGirl = [...boardRight.start]
+                movesGirl.push(auxGirl)
+                ctx.clearRect(450, 0, 450, 600)
+                boardRight.start[1]++
+                removeTileGirl()
+                boardRight.draw()
+                keyGirl()
+            }
+        }
+
+        function keyGirl() {
+            if (boardRight.key[1] === positionKeyGirl[1] && boardRight.key[0] === positionKeyGirl[0]) {
+                tokenGirl = true
+                if (tokenGirl) {
+                    boardRight.map[boardRight.exit[0]][boardRight.exit[1]] = 5
+                    boardRight.key = []
+                }
+            }
+            //return key
+        }
+
+        function removeTileGirl() {
+            if (boardRight.map[movesGirl[movesGirl.length - 1][0]][movesGirl[movesGirl.length - 1][1]] === 1) {
+                boardRight.map[movesGirl[movesGirl.length - 1][0]][movesGirl[movesGirl.length - 1][1]] = 0
+            } else if (boardRight.map[movesGirl[movesGirl.length - 1][0]][movesGirl[movesGirl.length - 1][1]] === 3) {
+                boardRight.map.forEach((array,i) => {
+                    array.forEach((element,j) => {
+                        if (element === 3) {
+                            boardRight.map[i][j] = 0
+                        }
+                    })
+                })
+            }
+        }
+
         document.onkeydown = (e) => { 
             if (e.keyCode === 68) return boyRight()
             if (e.keyCode === 65) return boyLeft()
             if (e.keyCode === 87) return boyUp()
             if (e.keyCode === 83) return boyDown()
+            if (e.keyCode === 39) return girlRight()
+            if (e.keyCode === 37) return girlLeft()
+            if (e.keyCode === 38) return girlUp()
+            if (e.keyCode === 40) return girlDown()
         }
 
     }
