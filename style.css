@@ -54,11 +54,26 @@ p {
     color: tomato;
 }
 
-button {
+#play {
     background: rgba(255, 112, 162, 0.5);
     padding: 20px 50px;
     font-size: 3rem;
     color: snow;
     border-radius: 20px;
     margin-top: 20px;
+}
+
+#full {
+    width: 50px;
+    height: auto;
+    opacity: 0.25;
+}
+
+#fullscreen {
+    position: absolute;
+    border: none;
+    width: 50px;
+    height: auto;
+    margin-top: 520px;
+    margin-left: 550px;
 }

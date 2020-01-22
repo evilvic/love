@@ -398,7 +398,7 @@ window.onload = () => {
     
     function startGame() {
         
-        ctx.clearRect(0, 0, 900, 600)
+        ctx.clearRect(0, 0, 910, 600)
         boardLeft = new Map(25, levels[levelBoy])
         boardRight = new Map(475, levels[levelGirl])
         boardLeft.draw()
@@ -435,7 +435,7 @@ window.onload = () => {
                 boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] != 4){
                 aux = [...boardLeft.start]
                 moves.push(aux)
-                ctx.clearRect(0, 0, 450, 600)
+                ctx.clearRect(0, 0, 470, 600)
                 boardLeft.start[0]++
                 removeTile()
                 boardLeft.draw()
@@ -448,7 +448,7 @@ window.onload = () => {
                 boardLeft.map[boardLeft.start[0] - 1][boardLeft.start[1]] != 4) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
-                ctx.clearRect(0, 0, 450, 600)
+                ctx.clearRect(0, 0, 470, 600)
                 boardLeft.start[0]--
                 removeTile()
                 boardLeft.draw()
@@ -461,7 +461,7 @@ window.onload = () => {
                 boardLeft.map[boardLeft.start[0]][boardLeft.start[1] - 1] != 4) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
-                ctx.clearRect(0, 0, 450, 600)
+                ctx.clearRect(0, 0, 470, 600)
                 boardLeft.start[1]--
                 removeTile()
                 boardLeft.draw()
@@ -474,7 +474,7 @@ window.onload = () => {
                 boardLeft.map[boardLeft.start[0]][boardLeft.start[1] + 1] != 4) {
                 aux = [...boardLeft.start]
                 moves.push(aux)
-                ctx.clearRect(0, 0, 450, 600)
+                ctx.clearRect(0, 0, 470, 600)
                 boardLeft.start[1]++
                 removeTile()
                 boardLeft.draw()
@@ -512,7 +512,7 @@ window.onload = () => {
                 boardRight.map[boardRight.start[0] + 1][boardRight.start[1]] != 4){
                 auxGirl = [...boardRight.start]
                 movesGirl.push(auxGirl)
-                ctx.clearRect(450, 0, 450, 600)
+                ctx.clearRect(450, 0, 480, 600)
                 boardRight.start[0]++
                 removeTileGirl()
                 boardRight.draw()
@@ -525,7 +525,7 @@ window.onload = () => {
                 boardRight.map[boardRight.start[0] - 1][boardRight.start[1]] != 4) {
                 auxGirl = [...boardRight.start]
                 movesGirl.push(auxGirl)
-                ctx.clearRect(450, 0, 450, 600)
+                ctx.clearRect(450, 0, 480, 600)
                 boardRight.start[0]--
                 removeTileGirl()
                 boardRight.draw()
@@ -538,7 +538,7 @@ window.onload = () => {
                 boardRight.map[boardRight.start[0]][boardRight.start[1] - 1] != 4) {
                 auxGirl = [...boardRight.start]
                 movesGirl.push(auxGirl)
-                ctx.clearRect(450, 0, 450, 600)
+                ctx.clearRect(450, 0, 480, 600)
                 boardRight.start[1]--
                 removeTileGirl()
                 boardRight.draw()
@@ -551,7 +551,7 @@ window.onload = () => {
                 boardRight.map[boardRight.start[0]][boardRight.start[1] + 1] != 4) {
                 auxGirl = [...boardRight.start]
                 movesGirl.push(auxGirl)
-                ctx.clearRect(450, 0, 450, 600)
+                ctx.clearRect(450, 0, 480, 600)
                 boardRight.start[1]++
                 removeTileGirl()
                 boardRight.draw()
@@ -599,6 +599,14 @@ window.onload = () => {
             if (e.keyCode === 38) return girlUp()
             if (e.keyCode === 40) return girlDown()
         }
+
+        document.querySelector('#fullscreen').onclick = () => {
+            if (canvas.webkitRequestFullScreen) {
+              canvas.webkitRequestFullScreen()
+            } else {
+              canvas.mozRequestFullScreen()
+            }
+          }
 
     }
 
