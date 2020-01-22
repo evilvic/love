@@ -29,7 +29,7 @@ let tokenGirl = false
 /* ----- LEVELS ----- */
 const levels = [
     {
-        id: 0,
+        id: '1 boy',
         width: 5,
         height: 5,
         map: [
@@ -44,7 +44,22 @@ const levels = [
         key:  [2, 2]
     },
     {
-        id: 1,
+        id: '1 girl',
+        width: 5,
+        height: 5,
+        map: [
+            [0, 0, 0, 0, 0],
+            [0, 1, 2, 1, 0],
+            [0, 1, 2, 1, 0],
+            [0, 1, 2, 1, 0],
+            [0, 0, 4, 0, 0],
+        ],
+        exit: [4, 2],
+        start: [1, 2],
+        key:  [2, 2]
+    },
+    {
+        id: '2 boy',
         width: 6,
         height: 6,
         map: [
@@ -60,7 +75,23 @@ const levels = [
         key: [1, 1]
     },
     {
-        id: 2,
+        id: '2 girl',
+        width: 6,
+        height: 6,
+        map: [
+            [0, 0, 0, 0, 0, 0],
+            [0, 2, 1, 1, 1, 0],
+            [0, 1, 3, 3, 1, 0],
+            [0, 1, 3, 3, 1, 0],
+            [0, 3, 1, 1, 2, 4],
+            [0, 0, 0, 0, 0, 0]
+        ],
+        exit: [4, 5],
+        start: [4, 4],
+        key: [1, 1]
+    },
+    {
+        id: '3 boy',
         width: 7,
         height: 7,
         map: [
@@ -77,7 +108,24 @@ const levels = [
         key: [1, 5]
     },
     {
-        id: 3,
+        id: '3 girl',
+        width: 7,
+        height: 7,
+        map: [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 3, 1, 1, 3, 0],
+            [0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 1, 2, 1, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0],
+            [0, 3, 1, 1, 1, 3, 0],
+            [0, 0, 0, 4, 0, 0, 0]
+        ],
+        exit: [6, 3],
+        start: [1, 1],
+        key: [1, 5]
+    },
+    {
+        id: '4 boy',
         width: 7,
         height: 8,
         map: [
@@ -94,7 +142,24 @@ const levels = [
         key: [2, 4]
     },
     {
-        id: 4,
+        id: '4 girl',
+        width: 7,
+        height: 8,
+        map: [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 3, 1, 3, 1, 3, 0],
+            [0, 3, 1, 3, 1, 3, 0, 0],
+            [0, 3, 1, 1, 2, 3, 0, 0],
+            [0, 3, 1, 3, 1, 3, 0, 0],
+            [0, 0, 3, 1, 3, 1, 3, 0],
+            [0, 0, 0, 0, 0, 4, 0, 0]
+        ],
+        exit: [6, 5],
+        start: [2, 2],
+        key: [2, 4]
+    },
+    {
+        id: '5 boy',
         width: 8,
         height: 8,
         map: [
@@ -109,19 +174,37 @@ const levels = [
         ],
         exit: [7, 5],
         start: [3, 2],
-        key: [5, 3]
+        key: [1, 5]
     },
     {
-        id: 5,
+        id: '5 girl',
+        width: 8,
+        height: 8,
+        map: [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 1, 1, 0, 0],
+            [0, 1, 0, 1, 0, 1, 0, 0],
+            [0, 1, 2, 1, 1, 1, 1, 0],
+            [0, 0, 1, 0, 3, 0, 1, 0],
+            [0, 1, 1, 1, 2, 1, 1, 0],
+            [0, 3, 0, 3, 0, 3, 0, 0],
+            [0, 0, 0, 0, 0, 4, 0, 0]
+        ],
+        exit: [7, 5],
+        start: [3, 2],
+        key: [1, 5]
+    },
+    {
+        id: '6 boy',
         width: 7,
         height: 7,
         map: [
             [0, 0, 0, 0, 0, 0, 0],
-            [0, 1, 1, 3, 0, 0, 0],
-            [0, 1, 0, 1, 0, 0, 0],
-            [0, 3, 1, 1, 1, 1, 0],
-            [0, 0, 0, 1, 0, 3, 0],
-            [0, 0, 0, 1, 1, 1, 0],
+            [0, 1, 3, 1, 0, 0, 0],
+            [0, 1, 0, 3, 0, 0, 0],
+            [0, 3, 1, 2, 1, 1, 0],
+            [0, 0, 0, 2, 0, 1, 0],
+            [0, 0, 0, 1, 3, 1, 0],
             [0, 0, 0, 0, 0, 4, 0]
         ],
         exit: [6, 5],
@@ -129,20 +212,53 @@ const levels = [
         key: [5, 3]
     },
     {
-        id: 6,
+        id: '6 girl',
+        width: 7,
+        height: 7,
+        map: [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 3, 1, 0, 0, 0],
+            [0, 1, 0, 3, 0, 0, 0],
+            [0, 3, 1, 2, 1, 1, 0],
+            [0, 0, 0, 2, 0, 1, 0],
+            [0, 0, 0, 1, 3, 1, 0],
+            [0, 0, 0, 0, 0, 4, 0]
+        ],
+        exit: [6, 5],
+        start: [1, 1],
+        key: [5, 3]
+    },
+    {
+        id: '7 boy',
         width: 8,
         height: 7,
         map: [
             [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 1, 0, 0],
+            [0, 0, 1, 0, 1, 4, 0],
             [0, 1, 1, 0, 1, 0, 0],
-            [0, 1, 1, 0, 1, 1, 0],
-            [0, 0, 1, 0, 3, 1, 0],
-            [0, 0, 1, 0, 0, 1, 0],
-            [0, 0, 3, 0, 0, 1, 0],
-            [0, 0, 4, 0, 0, 0, 0]
+            [0, 1, 1, 0, 3, 1, 0],
+            [0, 0, 1, 1, 3, 1, 0],
+            [0, 0, 3, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0]
         ],
-        exit: [7, 2],
+        exit: [1, 5],
+        start: [1, 2],
+        key: [3, 1]
+    },
+    {
+        id: '7 girl',
+        width: 8,
+        height: 7,
+        map: [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 1, 4, 0],
+            [0, 1, 1, 0, 1, 0, 0],
+            [0, 1, 1, 0, 3, 1, 0],
+            [0, 0, 1, 1, 3, 1, 0],
+            [0, 0, 3, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ],
+        exit: [1, 5],
         start: [1, 2],
         key: [3, 1]
     }
@@ -259,20 +375,6 @@ class Character {
 /* ----- RENDER ----- */
 window.onload = () => {
     
-    boardLeft = new Map(25, levels[levelBoy])
-    boardRight = new Map(475, levels[levelGirl])
-    boardLeft.draw()
-    boardRight.draw()
-    positionKey = boardLeft.start
-    positionKeyGirl = boardRight.start
-    position = [...boardLeft.start]
-    let aux
-    let auxGirl
-    ctx.beginPath()
-    ctx.moveTo(450,0)
-    ctx.lineTo(450,600)
-    ctx.stroke()
-    ctx.closePath()
     
     document.querySelector('#play').onclick = function() {
         document.querySelector('#play').blur()
@@ -281,15 +383,43 @@ window.onload = () => {
     
     function startGame() {
 
+        boardLeft = new Map(25, levels[levelBoy])
+        boardRight = new Map(475, levels[levelGirl])
+        boardLeft.draw()
+        boardRight.draw()
+        positionKey = boardLeft.start
+        positionKeyGirl = boardRight.start
+        //position = [...boardLeft.start]
+        let aux
+        let auxGirl
+        ctx.beginPath()
+        ctx.moveTo(450,0)
+        ctx.lineTo(450,600)
+        ctx.stroke()
+        ctx.closePath()
+
 
         let interval = setInterval(function() {
             if (positionKey[0] === boardLeft.exit[0] &&
                 positionKey[1] === boardLeft.exit[1] &&
                 positionKeyGirl[0] === boardRight.exit[0] &&
                 positionKeyGirl[1] === boardRight.exit[1]) {
-                console.log('win')
+                nextLevel()
             }
         }, 1000)
+
+        function nextLevel() {
+            clearInterval(interval)
+            ctx.clearRect(0, 0, 900, 600)
+            console.log('win')
+            levelBoy += 2
+            levelGirl += 2
+            positionKey = null
+            positionKeyGirl = null
+            aux = null
+            auxGirl = null
+            startGame()
+        }
 
         /* ----- MOVE --- */
         function boyRight() {
