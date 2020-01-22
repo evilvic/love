@@ -423,15 +423,23 @@ window.onload = () => {
         }, 1000)
 
         function nextLevel() {
+
             clearInterval(interval)
             ctx.clearRect(0, 0, 900, 600)
+
             levelBoy += 2
             levelGirl += 2
             positionKey = null
             positionKeyGirl = null
             aux = null
             auxGirl = null
-            startGame()
+
+            if (levelBoy === 14) {
+                endGame()
+            } else {
+                startGame()
+            }
+
         }
 
         /* ----- MOVE BOY --- */
@@ -594,6 +602,18 @@ window.onload = () => {
             }
         }
 
+        function endGame() {
+            ctx.font = '30px Comfortaa'
+            ctx.fillStyle = 'pink'
+            ctx.fillText('\\{^_^}/ Congratulations!', 250, 150)
+
+            ctx.font = '20px Comfortaa'
+            ctx.fillStyle = 'gray'
+            ctx.fillText('♥ Love wins.', 375, 275)
+            new Character(400, 325, images.boy)
+            new Character(450, 325, images.girl)
+        }
+
         document.onkeydown = (e) => { 
             if (e.keyCode === 68) return boyRight()
             if (e.keyCode === 65) return boyLeft()
@@ -605,7 +625,13 @@ window.onload = () => {
             if (e.keyCode === 40) return girlDown()
         }
 
+        document.querySelector('#reload').onclick = () => {
+            document.querySelector('#reload').blur()
+            location.reload()
+        }
+
         document.querySelector('#fullscreen').onclick = () => {
+            document.querySelector('#fullscreen').blur()
             if (canvas.webkitRequestFullScreen) {
               canvas.webkitRequestFullScreen()
             } else {
