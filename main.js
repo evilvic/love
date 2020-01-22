@@ -2,6 +2,9 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
+const audio = document.querySelector('audio')
+
+
 /* ----- IMAGES ----- */
 const images = {
     blTile: './assets/images/tile-blue.png',
@@ -389,10 +392,12 @@ window.onload = () => {
     ctx.fillText('Step on one and all will disappear', 350, 360)
     new Tile(250, 400, images.exTile)
     ctx.fillText('Escape portal', 350, 435)
+
     
     
     document.querySelector('#play').onclick = function() {
         document.querySelector('#play').blur()
+        audio.play()
         startGame();
     };
     
