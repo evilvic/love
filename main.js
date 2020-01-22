@@ -374,6 +374,21 @@ class Character {
 
 /* ----- RENDER ----- */
 window.onload = () => {
+
+    ctx.font = '30px Comfortaa'
+    ctx.fillStyle = 'pink'
+    ctx.fillText('\\{^_^}/ Welcome!', 325, 100)
+
+    ctx.font = '20px Comfortaa'
+    ctx.fillStyle = 'gray'
+    new Tile(250, 175, images.blTile)
+    ctx.fillText('Disappear after one step', 350, 210)
+    new Tile(250, 250, images.orTile)
+    ctx.fillText('Never disappear', 350, 285)
+    new Tile(250, 325, images.piTile)
+    ctx.fillText('Step on one and all will disappear', 350, 360)
+    new Tile(250, 400, images.exTile)
+    ctx.fillText('Escape portal', 350, 435)
     
     
     document.querySelector('#play').onclick = function() {
@@ -382,22 +397,16 @@ window.onload = () => {
     };
     
     function startGame() {
-
+        
+        ctx.clearRect(0, 0, 900, 600)
         boardLeft = new Map(25, levels[levelBoy])
         boardRight = new Map(475, levels[levelGirl])
         boardLeft.draw()
         boardRight.draw()
         positionKey = boardLeft.start
         positionKeyGirl = boardRight.start
-        //position = [...boardLeft.start]
         let aux
         let auxGirl
-        ctx.beginPath()
-        ctx.moveTo(450,0)
-        ctx.lineTo(450,600)
-        ctx.stroke()
-        ctx.closePath()
-
 
         let interval = setInterval(function() {
             if (positionKey[0] === boardLeft.exit[0] &&
@@ -411,7 +420,6 @@ window.onload = () => {
         function nextLevel() {
             clearInterval(interval)
             ctx.clearRect(0, 0, 900, 600)
-            console.log('win')
             levelBoy += 2
             levelGirl += 2
             positionKey = null
@@ -421,7 +429,7 @@ window.onload = () => {
             startGame()
         }
 
-        /* ----- MOVE --- */
+        /* ----- MOVE BOY --- */
         function boyRight() {
             if (boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] > 0 &&
                 boardLeft.map[boardLeft.start[0] + 1][boardLeft.start[1]] != 4){
