@@ -19,6 +19,7 @@ let level = 0
 let boardLeft
 let boardRigth
 let position
+let positionKey
 let moves = []
 let token = false
 
@@ -72,7 +73,6 @@ const levels = [
         start: [1, 1],
         key: [1, 5]
     }
-
 ]
 
 /* ----- CLASSES ----- */
