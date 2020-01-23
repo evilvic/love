@@ -22,4 +22,4 @@ This game was created by Víctor Peña Romero at Ironhack.
 
 
 [logo]: https://raw.githubusercontent.com/evilvic/love/master/assets/images/love.png
-[screen-shot]: 
+[screen-shot]: https://raw.githubusercontent.com/evilvic/love/master/assets/images/screen-shot.png
