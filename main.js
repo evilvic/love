@@ -14,7 +14,9 @@ const images = {
     exTile: './assets/images/tile-green.png',
     boy: './assets/images/ch-boy.png',
     girl: './assets/images/ch-girl.png',
-    token: './assets/images/token.png'
+    token: './assets/images/token.png',
+    wasd: './assets/images/wasd.png',
+    arrows: './assets/images/arrows.png'
 }
 
 /* ----- VARIABLES ----- */
@@ -375,23 +377,48 @@ class Character {
     }
 }
 
+class Keyboard {
+    constructor(x, y, src) {
+        this.x = x
+        this.y = y
+        this.width = 120
+        this.height = 85
+        this.img = new Image()
+        this.img.src = src
+        this.img.onload = () => {
+            this.draw()
+        }
+    }
+    draw() {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+    }
+}
+
 /* ----- RENDER ----- */
 window.onload = () => {
 
     ctx.font = '30px Comfortaa'
     ctx.fillStyle = 'pink'
-    ctx.fillText('\\{^_^}/ Welcome!', 325, 100)
+    ctx.fillText('\\{^_^}/ Welcome!', 325, 75)
 
     ctx.font = '20px Comfortaa'
     ctx.fillStyle = 'gray'
-    new Tile(250, 175, images.blTile)
-    ctx.fillText('Disappear after one step', 350, 210)
-    new Tile(250, 250, images.orTile)
-    ctx.fillText('Never disappear', 350, 285)
-    new Tile(250, 325, images.piTile)
-    ctx.fillText('Step on one and all will disappear', 350, 360)
-    new Tile(250, 400, images.exTile)
-    ctx.fillText('Escape portal', 350, 435)
+    new Tile(250, 125, images.blTile)
+    ctx.fillText('Disappear after one step', 350, 160)
+    new Tile(250, 200, images.orTile)
+    ctx.fillText('Never disappear', 350, 235)
+    new Tile(250, 275, images.piTile)
+    ctx.fillText('Step on one and all will disappear', 350, 310)
+    new Tile(250, 350, images.exTile)
+    ctx.fillText('Escape portal', 350, 385)
+
+    new Keyboard(335, 440, images.wasd)
+    new Keyboard(485, 440, images.arrows)
+    ctx.font = '16px Comfortaa'
+    ctx.fillStyle = 'rgba(55, 159, 243, 0.75)'
+    ctx.fillText('BOY', 380, 550)
+    ctx.fillStyle = 'pink'
+    ctx.fillText('GIRL', 525, 550)
 
     
     
